@@ -43,3 +43,9 @@ SELECT *
 FROM Products
 WHERE CategoryID IN (1,5) AND Price < 20
 ORDER BY Price ASC
+
+
+
+
+
+
