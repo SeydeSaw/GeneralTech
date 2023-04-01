@@ -1,0 +1,129 @@
+Создать таблицу staff с полями:
+• id – integer - уникальное значение, не null, с автозаполнением 
+• firstname - varchar - не null
+• lastname - varchar - не null
+• position - varchar
+• age - integer - от 0 до 110
+• has_child – либо Y, либо N
+• username - varchar - уникальный
+
+create table if not exists staff (
+    staff_id integer primary key auto_increment,
+    firstname varchar(128) not null,
+    lastname varchar(128) not null,
+    position VARCHAR(64),
+    age INTEGER check (age between 0 and 110),
+    has_child bool DEFAULT false,
+    username VARCHAR(128) UNIQUE);
+
+
+Используя файл staff.txt заполнить таблицу,
+
+INSERT INTO staff(firstname, lastname, position, age, username)
+VALUES
+('Anna', 'Annova', 'teacher', 45, 'Anna1' ),
+('Anna', 'Ljvova', 'cook', 60, 'Anna2'), 
+('Anna', 'Pavlova', 'teacher', 25, 'Anna3'), 
+('Boris', 'Volkov', 'driver', 30, 'Boris4'), 
+('Boris', 'Borisov', 'mechanic', 57, 'Boris5'), 
+('Dmitry', 'Dmitriv', 'pilot', 45, 'Dmitry6'), 
+('Dmitry', 'Artist', 'artist', 19, 'Dmitry7'), 
+('Dmitri', 'Bulkin', 'teacher', 25, 'Dmitry8'), 
+('Tom','Tomson', 'baker', 38, 'Tom9'), 
+('Tom', 'Lorenz', 'taecher', 55, 'Tom10'), 
+('Tom', 'Piterson', 'artist', 35, 'Tom11'), 
+('Maria', 'Marinova', 'designs', 28, 'Matia12'), 
+('Maria', 'Markova', 'assistant_cook', 19, 'Maria13'), 
+('Kirill',' Kirilov', 'assistant_cook', 21, 'Kirill14'), 
+('Pavel', 'Pavlov', 'salesman', 33, 'Pavel15'), 
+('Pavel','Patov','programmer', 37, 'Pavel16'), 
+('Katerina', 'Kotova', 'programmer', 34, 'Katerina17'), 
+('Viktor', 'Vetrov', 'pilot', 47, 'Viktor18'), 
+('Valentin', 'Beljaev', 'driver', 41, 'Valentin19'), 
+('Monika', 'Gverder', 'assistant_baker', 19, 'Monika20'), 
+('Nina', 'Naniva', 'baker', 66, 'Nina21'), 
+('Anton',' Antonov', 'salesman', 26,'Anaton22'),
+('Valenti', 'Markov', 'cook', 31, 'Valentin23'), 
+('Kirill',' Lorenz', 'assistant_cook', 19, 'Kirill24'), 
+('Nina', 'Lorenz', 'baker', 31, 'Nina25'), 
+('Anton',' Volkov', 'salesman', 31,'Anaton26');
+
+Получить всю таблицу,
+
+SELECT*
+From staff;
+
+Найти список работников, которым больше 30 лет и у них нет детей,
+
+SELECT*
+FROM staff
+WHERE age >= 30 AND has_child = FALSE;
+
+Найти список работников, у которых средний уровень должности и им больше 
+
+20 лет,
+SELECT*
+FROM staff
+WHERE position_level = 'middle' AND age >=20;
+
+Найти список работников, у которых имя начинается с буквы А и у них нет 
+детей,
+
+SELECT*
+FROM staff
+WHERE firstname LIKE 'a%' AND has_child = FALSE;
+
+Найти список работников, которым меньше 25, у них младший уровень должности и у них нет детей,
+
+SELECT*
+FROM staff
+WHERE age < 25 AND position_level = 'beginner' AND has_child = FALSE;
+
+Найти список работников с именем Анна, у которых уровень должности либо средний, либо старший,
+
+SELECT*
+FROM staff
+WHERE firstname LIKE '%Anna%' AND position_level != 'beginner';
+
+Найти всех блогеров,
+
+SELECT*
+FROM staff
+WHERE has_blog = TRUE;
+
+
+Найти всех преподавателей, у которых есть дети,
+
+SELECT*
+FROM staff
+WHERE position = 'teacher' AND has_child = TRUE;
+
+Найти всех дизайнеров, которым меньше 40,
+
+SELECT *
+FROM staff
+WHERE position = 'designs' AND age < 40;
+
+Найти всех Томов со средним уровнем должности,
+
+SELECT*
+FROM staff
+WHERE firstname LIKE '%Tom%' AND position_level = 'middle';
+
+Найти всех с фамилией Лоренц у который нет детей, и они молодые работники (младший уровень должности),
+
+SELECT*
+FROM staff
+WHERE lastname LIKE '%Lorenz%' AND has_child = FALSE AND position_level = 'beginner';
+
+Найти список работников, у который юзернейм заканчивается на ‘1’,
+
+SELECT*
+FROM staff
+WHERE username LIKE '%1';
+
+Найти список работников в возрасте от 20 до 30 лет, у которых младший уровень должности.
+
+SELECT*
+FROM staff
+WHERE age BETWEEN 20 AND 30 AND position_level = 'beginner';
