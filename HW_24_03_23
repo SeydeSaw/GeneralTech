@@ -2,9 +2,9 @@
 
 (1) Вывести пользователей, у которых не указан email-адрес
 
-SELECT *
+SELECT user_id, e_mail
 FROM users
-WHERE e_mail is NULL;
+WHERE e_mail='' OR e_mail is NULL;
 
 (2) Вывести незаблокированных пользователей из Китая
 
@@ -24,7 +24,7 @@ WHERE users.is_blocked = TRUE;
 SELECT reactions.value, users.fullname
 FROM reactions
 JOIN users ON reactions.user_id=users.user_id
-ORDER BY reactions.value DESC
+ORDER BY reactions.created_at DESC
 LIMIT 3;
 
 (5) Вывести пожертвования заблокированных пользователей
