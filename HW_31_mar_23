@@ -1,0 +1,33 @@
+
+ В рамках БД 'platform' решите след/задачи:
+
+(1) Вывести все пожертвования от 10 EUR, с указанием имени автора пожертвования и суммы
+
+SELECT
+    donations.amount AS amount_eur ,
+    users.fullname AS donator_fullname
+FROM donations
+JOIN users ON donations.donator_id=users.user_id
+WHERE donations.amount >= 10;
+
+(2) Вывести стримера, которому было сделано самое минимальное пожертвование (имя_стримера, сумма)
+
+SELECT 
+    donations.amount,
+    users.fullname AS streamer_fullname
+FROM streams
+JOIN users ON streams.user_id=users.user_id
+JOIN donations ON donations.stream_id= streams.stream_id
+ORDER BY amount
+LIMIT 1;
+
+(3) Вывести последнее пожертвование (название_стрима, сумма)
+
+SELECT
+    streams.title AS stream_title,
+    donations.amount AS amount
+FROM donations
+JOIN users ON donations.donator_id=users.user_id
+JOIN streams ON donations.stream_id=streams.stream_id
+ORDER BY donations.created_at DESC
+LIMIT 1;
