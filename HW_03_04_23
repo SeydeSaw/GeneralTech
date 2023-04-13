@@ -1,0 +1,36 @@
+(1) Описать связи между таблицами БД "песочница"
+
+Customers.CustomerID (1:M) Orders.CustomerID
+Employees.EmployeeID (1:M) Orders.EmployeeID
+Shippers.ShipperID (1:M) Orders.ShipperID
+Suppliers.SupplierID (1:M) Orders.SupplierID
+Categories.CategoryID (1:M) Orders.CategoryID
+Suppliers.SupplierID (1:M) Products.SupplierID
+Categories.CategoryID (1:M) Products.CategoryID  
+OrderDetails.OrderDetailID (1:M) Products.OrderDetailID
+OrderDetails.OrderDetailID (1:M) Orders.OrderDetailID
+
+(2) Вывести страны клиентов (БД platform)
+
+SELECT Country
+FROM Customers
+
+(3) Вывести пользователей без пароля (БД platform)
+
+SELECT *
+FROM users
+WHERE password IS NULL;
+
+(4) Вывести страны донаторов с максимальным и минимальным пожертвованиями (БД platform)
+
+(SELECT country
+FROM donations
+JOIN users ON donations.donator_id=users.user_id
+ORDER BY amount DESC
+LIMIT 1)
+UNION -- объединение
+(SELECT country
+FROM donations
+JOIN users ON donations.donator_id=users.user_id
+ORDER BY amount 
+LIMIT 1);
