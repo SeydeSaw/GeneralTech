@@ -1,0 +1,51 @@
+
+--Вывести название самого посещаемого кинозала
+
+SELECT 
+  halls.name,
+  COUNT(*) AS total_tickets
+FROM tickets
+LEFT JOIN timetable on tickets.timetable_id=timetable.timetable_id
+LEFT JOIN halls ON timetable.hall_id=halls.hall_id
+GROUP BY halls.hall_id
+ORDER BY total_tickets DESC
+LIMIT 1;
+
+--Вывести название и ко-во проданных билетов самого непопулярного фильма
+
+SELECT 
+  movies.title AS movie_title,
+  COUNT(*) AS total_tickets
+ FROM tickets
+ LEFT JOIN timetable ON tickets.timetable_id=timetable.timetable_id
+ LEFT JOIN movies ON timetable.movie_id=movies.movie_id
+ GROUP BY movies.movie_id
+ ORDER BY total_tickets 
+ LIMIT 1;
+
+--Вывести процент времени, который отводится рекламе в каждом сеансе
+
+SELECT 
+  (timetable.duration_minute - movies.duration_minute) * 100 / timetable.duration_minute AS '% времени рекламы'
+From timetable
+LEFT JOIN movies ON timetable.movie_id=movies.movie_id;
+
+--Вывести самый продолжительный фильм (название и продолжительность)
+
+SELECT
+  movies.title,
+  movies.duration_minute
+From timetable
+LEFT JOIN movies ON timetable.movie_id=movies.movie_id
+ORDER BY movies.duration_minute DESC
+LIMIT 1;
+
+--Вывести среднюю стоимость билета для каждого фильма (ср/стоимость и название фильма - проекция)
+
+SELECT 
+  movies.title,
+  AVG(cost) AS 'Средняя цена билета'
+ FROM tickets
+ LEFT JOIN timetable ON tickets.timetable_id=timetable.timetable_id
+ LEFT JOIN movies ON timetable.movie_id=movies.movie_id
+ GROUP BY movies.movie_id;
